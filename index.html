@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Healthnastics G-D-Cadets</title>
+    
+    <!-- 1. Tailwind CSS Engine (Loads via CDN for instant layout rendering) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Typography: Inter (Sans) and Playfair Display (Retro Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+    
+    <!-- 3. Icon Libraries: Font Awesome & Lucide-react dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    
+    <!-- 4. Firebase SDKs (Compatibility Version for easy data linking) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+      /**
+       * CUSTOM THEME CONFIGURATION
+       * This maps your specific Kente hex codes to Tailwind classes.
+       * Now you can use "text-gold", "bg-red", etc. in your App.jsx.
+       */
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              gold: '#D4AF37',
+              red: '#CC0000',
+              green: '#006633',
+              earth: '#fdf8f1',
+            },
+            fontFamily: {
+              serif: ['"Playfair Display"', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+
+      /**
+       * FIREBASE CONNECTION
+       * Injects your Project ID so the Archive can load photos.
+       */
+      window.__app_id = "lewis-harris-19e82";
+      window.__firebase_config = JSON.stringify({
+        authDomain: "lewis-harris-19e82.firebaseapp.com",
+        projectId: "lewis-harris-19e82",
+        storageBucket: "lewis-harris-19e82.firebasestorage.app",
+      });
+    </script>
+
+    <style>
+      /* Prevent horizontal scroll issues and ensure smooth font rendering */
+      body {
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+      
+      /* Ensure the custom fonts load even if Tailwind is slow to initialize */
+      .font-serif { font-family: 'Playfair Display', serif !important; }
+      .font-sans { font-family: 'Inter', sans-serif !important; }
+    </style>
+  </head>
+  <body>
+    <!-- This is where the React App (App.jsx) is injected -->
+    <div id="root"></div>
+    
+    <!-- 5. VITE ENTRY SCRIPT -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
