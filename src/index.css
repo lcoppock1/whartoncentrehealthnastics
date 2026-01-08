@@ -1,17 +1,63 @@
 @import url('https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DPlayfair%2BDisplay:ital,wght%400,400%3B0,700%3B0,900%3B1,400%3B1,700%3B1,900%26family%3DInter:wght%40300%3B400%3B600%3B700%3B800%3B900%26display%3Dswap');
-:root { --kente-gold: #D4AF37; --kente-red: #CC0000; --kente-green: #006633; --warm-earth: #fdf8f1; }
-{ margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #ffffff; color: #000000; overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+:root { 
+  --kente-gold: #D4AF37; 
+  --kente-red: #CC0000; 
+  --kente-green: #006633; 
+  --warm-earth: #fdf8f1; 
+}
+
+/* Fixed: Added the asterisk (*) selector below */
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body { 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+  background-color: #ffffff; 
+  color: #000000; 
+  overflow-x: hidden; 
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
+}
+
 /* --- Font Class Mapping --- */
 .font-serif { font-family: 'Playfair Display', serif; }
 .font-sans { font-family: 'Inter', sans-serif; }
-/* --- Custom Layout Helpers --- */
-/* Ensures the Hero text has that tight, architectural look */ .tracking-tighter { letter-spacing: -0.05em; }
-/* For the AI blog summaries */ .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-overflow: hidden; }
-/* Custom selection color (Kente Gold) */ ::selection { background: var(--kente-gold); color: #000000; }
-/* Smooth fade-in for page transitions */ .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-/* --- Tailwind Layer Fixes --- / / (In case you are using the Vite Tailwind setup instead of CDN) */ @tailwind base; @tailwind components; @tailwind utilities;
 
+/* --- Custom Layout Helpers --- */
+.tracking-tighter { 
+  letter-spacing: -0.05em; 
+}
+
+.line-clamp-2 { 
+  display: -webkit-box; 
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden; 
+}
+
+::selection { 
+  background: var(--kente-gold); 
+  color: #000000; 
+}
+
+.animate-fade-in { 
+  animation: fadeIn 0.8s ease-out forwards; 
+}
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(10px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+/* --- Tailwind Layer Fixes --- */
+@tailwind base; 
+@tailwind components; 
+@tailwind utilities;
