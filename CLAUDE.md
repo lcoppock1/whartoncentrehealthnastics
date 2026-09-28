@@ -3,6 +3,24 @@
 Nonprofit youth program site (Philadelphia, ages ~8–14): gymnastics + civic
 leadership ("GD-Cadets") + homework help, summer camp, trips. Founder: Lewis Harris.
 
+The owner is a novice web builder building this for their grandfather, Lewis Harris Jr.
+
+## Known facts (from the owner + public search — confirm with Mr. Harris before publishing)
+- Organization: **Healthnastics Center Inc.**, a nonprofit founded by Lewis Harris Jr. for
+  youth, teen and adult physical wellness, recreation and health education.
+- Spelling: always **Wharton** (never "Warton"). Mr. Harris served as Chairman of the Board of
+  the historic **Wharton Centre** (North Philadelphia), which is a separate organization.
+- Mr. Harris works at **Clayborn & Lewis Playground** (also spelled Clayborne), 1101 N 38th St,
+  Philadelphia, PA 19104, East Parkside; recently renovated ($435K city investment) after
+  community advocacy by the Clayborn & Lewis Advisory Council.
+- Mr. Harris: Virginia Union University, B.A. Urban Studies; decades of community advocacy.
+- Keep the site **nonpartisan**: do not mention his political candidacies or party roles
+  (501(c)(3) nonprofits must stay out of electoral politics).
+- Unknown: what "GD" in GD-Cadets means, founding year, schedule, cost, contact info, EIN.
+- **Photo consent is NOT confirmed.** Do not publish identifiable photos of children from
+  `media/` until the owner confirms parent consent. Use non-identifiable images or placeholders.
+- No donation platform chosen yet.
+
 The owner is a novice web builder. Explain changes in plain language, avoid
 jargon, and never assume they know a tool — say what it does in one sentence.
 

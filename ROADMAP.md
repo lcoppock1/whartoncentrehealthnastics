@@ -24,8 +24,8 @@ Common pattern on all of them: **Hero (mission + 2 CTAs) → What we do (program
 - [ ] Fix header: nav links have no styling (`className="..."`), no mobile menu at all (menu is hidden on phones), active page not highlighted
 - [ ] Remove stray dead code (`PAYMENT_URLS` + orphan button at App.jsx:921–935), unused imports, lint error
 - [ ] Clean `package.json`: remove the bogus `@supabase-js/source` GitHub dependency
-- [ ] Media pipeline: compress photos (3–6 MB each → ~200 KB WebP), convert `.MOV` → `.mp4`, move web copies into `public/`; keep originals out of git (repo is 165 MB)
-- [ ] Missing file: `/coach-harris.jpg` (used on Home + About) — need photo from owner
+- [ ] Missing file: `/coach-harris.jpg` (used on Home + About) — placeholder until we get a photo of Mr. Harris
+- [ ] Fix "Warton" → "Wharton" everywhere
 - [ ] Add basic SEO: page titles, meta description, social share image, favicon (currently Vite logo)
 
 ## Phase 1 — Home page
@@ -45,6 +45,7 @@ Common pattern on all of them: **Hero (mission + 2 CTAs) → What we do (program
 - [ ] FAQ for parents (what to wear, pickup, safety, cost)
 
 ## Phase 4 — Gallery ("The Archives")
+- [ ] Media pipeline (only for consent-cleared photos): compress (3–6 MB each → ~200 KB WebP), convert `.MOV` → `.mp4`, move web copies into `public/`; keep originals out of git (repo is 165 MB)
 - [ ] Decide data source: static photo list in code (simplest, reliable) **or** fix Supabase (needs table, storage bucket, public read policy)
 - [ ] Fix the "cascade" effect: cards set `animationDelay` but no animation class runs, and `animate-in`/`fade-in` classes need a plugin that isn't installed → build a real staggered fade-in on scroll (respecting reduced-motion)
 - [ ] Show a friendly empty/error state (today a failed load silently shows nothing)
@@ -65,9 +66,17 @@ Common pattern on all of them: **Hero (mission + 2 CTAs) → What we do (program
 - [ ] Accessibility pass (contrast, 8–11px text sizes currently used, keyboard navigation)
 - [ ] Performance pass (Lighthouse ≥ 90), deploy (Vercel/Netlify) + custom domain
 
-## Questions for the owner
-- Is it **Wharton** or **Warton** Centre? (both are used today)
-- What does **GD** in GD-Cadets stand for, and is that name for parents or just internal?
-- Real facts: founding year, # of kids served, ages, schedule, cost, address, contact email/phone, EIN
-- Do all photos in `media/` have parent media consent?
-- Donation platform preference? Is the Supabase project still active (do you want to keep it)?
+## Questions — answered
+- Spelling → **Wharton** ✅
+- Location → Clayborn & Lewis Playground, 1101 N 38th St, Philadelphia, PA 19104 ✅ (confirm programs run there)
+- Photo consent → **not confirmed** — no identifiable kids' photos go live until it is
+- Donation platform → none yet (decide in Phase 5)
+
+## Questions to ask Grandpa (Mr. Harris)
+- What does **GD** in GD-Cadets stand for? Is it still the program name?
+- When was Healthnastics Center Inc. founded? Is it a registered 501(c)(3)? EIN?
+- Who is it for today — kids 8–14 only, or also teens and adults?
+- What happens each week: days, times, where, cost (free?), how does a family sign up?
+- Best public email / phone / socials for the site
+- A good photo of him for the About page (and his OK on the bio)
+- Can parents sign a photo-consent form so we can use real program photos?
