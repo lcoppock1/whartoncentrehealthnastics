@@ -20,7 +20,7 @@ const browser = await chromium.launch(launch);
 
 for (const path of paths) {
   for (const [label, width, height] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
-    const page = await browser.newPage({ viewport: { width, height } });
+    const page = await browser.newPage({ viewport: { width, height }, ignoreHTTPSErrors: true });
     const problems = [];
     page.on('console', (m) => m.type() === 'error' && problems.push(`console: ${m.text()}`));
     page.on('requestfailed', (r) => problems.push(`request failed: ${r.url()}`));

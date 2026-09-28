@@ -26,10 +26,10 @@ jargon, and never assume they know a tool — say what it does in one sentence.
 
 ## Stack
 - React 19 + Vite (`npm run dev`, `npm run build`, `npm run lint`)
-- Styling: Tailwind utility classes (currently via CDN in `index.html` — see ROADMAP Phase 0)
+- Styling: Tailwind v4 (Vite plugin); brand colors/fonts defined in `src/index.css` `@theme`
 - Icons: `lucide-react`
 - Optional data: Supabase (`src/supabaseClient.js`, table `cadet_modules`)
-- All pages currently live in `src/App.jsx` (to be split — ROADMAP Phase 0)
+- Routing: React Router (`src/App.jsx`); pages in `src/pages/`, shared pieces in `src/components/`, editable settings in `src/site.js`
 
 ## Workflow — ALWAYS follow this (owner must approve every change)
 
@@ -49,7 +49,12 @@ Work happens one page / one roadmap item at a time. Each item goes through:
    the checkbox in `ROADMAP.md`. Open a PR only if the owner asks.
 
 Never skip steps 1 or 4. If the owner says "just do it", that approval covers
-only the item being discussed.
+only the item being discussed. Exception: if the owner explicitly hands over full
+control for a session, run the loop without pausing but still run `/check` for every
+item and report a summary at the end.
+
+To re-enable per-edit approval prompts, add to `.claude/settings.json`:
+`"permissions": { "ask": ["Edit(src/**)", "Write(src/**)"] }`
 
 ## Content & style rules
 - Plain, warm language for parents, kids and donors. No fake metrics or

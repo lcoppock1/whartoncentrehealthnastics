@@ -17,16 +17,16 @@ Common pattern on all of them: **Hero (mission + 2 CTAs) → What we do (program
 ---
 
 ## Phase 0 — Foundation (fixes bugs that affect every page)
-- [ ] Install Tailwind properly (build step) instead of the CDN script; remove unused Firebase + Font Awesome scripts, the broken `@import` in `index.css`, and leftover template `App.css`
-- [ ] Load fonts once in `index.html` (Archivo Black is currently loaded inside the page body)
-- [ ] Add real page URLs (`/about`, `/programs`, …) with React Router so the back button, sharing and Google work
-- [ ] Split `src/App.jsx` (1,000 lines) into `components/` and `pages/`
-- [ ] Fix header: nav links have no styling (`className="..."`), no mobile menu at all (menu is hidden on phones), active page not highlighted
-- [ ] Remove stray dead code (`PAYMENT_URLS` + orphan button at App.jsx:921–935), unused imports, lint error
-- [ ] Clean `package.json`: remove the bogus `@supabase-js/source` GitHub dependency
-- [ ] Missing file: `/coach-harris.jpg` (used on Home + About) — placeholder until we get a photo of Mr. Harris
-- [ ] Fix "Warton" → "Wharton" everywhere
-- [ ] Add basic SEO: page titles, meta description, social share image, favicon (currently Vite logo)
+- [x] Install Tailwind properly (build step) instead of the CDN script; remove unused Firebase + Font Awesome scripts, the broken `@import` in `index.css`, and leftover template `App.css`
+- [x] Load fonts once in `index.html` (Archivo Black is currently loaded inside the page body)
+- [x] Add real page URLs (`/about`, `/programs`, …) with React Router so the back button, sharing and Google work
+- [x] Split `src/App.jsx` (1,000 lines) into `components/` and `pages/`
+- [x] Fix header: nav links have no styling (`className="..."`), no mobile menu at all (menu is hidden on phones), active page not highlighted
+- [x] Remove stray dead code (`PAYMENT_URLS` + orphan button at App.jsx:921–935), unused imports, lint error
+- [x] Clean `package.json`: remove the bogus `@supabase-js/source` GitHub dependency
+- [x] Missing file: `/coach-harris.jpg` (used on Home + About) — placeholder until we get a photo of Mr. Harris
+- [x] Fix "Warton" → "Wharton" everywhere
+- [x] Add basic SEO: site title, meta description, social share image, favicon
 
 ## Phase 1 — Home page
 - [ ] Hero: plain-language headline ("Gymnastics, leadership and homework help for Philly kids 8–14"), real photo, CTAs **Enroll your child** + **Support us**
