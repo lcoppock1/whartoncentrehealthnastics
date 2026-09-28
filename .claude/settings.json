@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "ask": ["Edit(src/**)", "Write(src/**)", "Edit(index.html)", "Write(index.html)", "Edit(public/**)", "Write(public/**)"]
+  }
+}
