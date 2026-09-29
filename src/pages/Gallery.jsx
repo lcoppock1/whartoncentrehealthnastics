@@ -1,138 +1,115 @@
-import { useState, useEffect } from 'react';
-import { PlayCircle, ArrowRight, X } from 'lucide-react';
-import { supabase } from '../supabaseClient';
+import { useCallback, useEffect, useState } from 'react';
+import { X, ChevronLeft, ChevronRight, Camera } from 'lucide-react';
+import { PHOTOS, CATEGORIES } from '../data/gallery';
+import { Button, PageHeader, Reveal } from '../components/ui';
+import { usePageTitle } from '../lib';
 
-// Photo/video archive loaded from Supabase. Rebuilt in ROADMAP Phase 4.
-export default function Gallery() {
-  const [activeFolder, setActiveFolder] = useState('gymnastics');
-  const [content, setContent] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedVideo, setSelectedVideo] = useState(null);
+const APPROVED = PHOTOS.filter((p) => p.approved);
+
+function Lightbox({ photos, index, onClose, onMove }) {
+  const photo = photos[index];
 
   useEffect(() => {
-    const fetchTrainingData = async () => {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('cadet_modules')
-        .select('*')
-        .eq('category', activeFolder)
-        .order('priority', { ascending: true });
-      if (!error) setContent(data);
-      setLoading(false);
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onMove(1);
+      if (e.key === 'ArrowLeft') onMove(-1);
     };
-    fetchTrainingData();
-  }, [activeFolder]);
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose, onMove]);
 
   return (
-    <main className="pt-32 pb-48 bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-
-        <div className="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
-          <div className="max-w-3xl">
-            <h1 className="font-['Archivo_Black'] text-7xl md:text-9xl uppercase tracking-tighter leading-[0.8] mb-8">
-              The <br /><span className="text-red">Archives.</span>
-            </h1>
-            <p className="font-mono text-[11px] uppercase tracking-[0.4em] text-black/40 border-l-2 border-black/10 pl-8">
-              Verified Operational Records //
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-3 mb-24 border-b border-black/5 pb-8">
-          {['gymnastics', 'civics', 'cadets', 'events'].map(id => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setActiveFolder(id)}
-              className={`px-8 py-3 font-mono text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 rounded-full ${
-                activeFolder === id
-                ? 'bg-gold text-black scale-105 shadow-lg'
-                : 'bg-transparent text-black/30 hover:text-black'
-              }`}
-            >
-              {id}
-            </button>
-          ))}
-        </div>
-
-        {loading ? (
-          <div className="h-96 flex flex-col items-center justify-center gap-6">
-            <div className="w-12 h-12 border-4 border-black/10 border-t-red rounded-full animate-spin"></div>
-            <span className="font-mono text-[10px] uppercase tracking-[1em] text-black/40">Syncing_Nodes...</span>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-            {content.map((item, index) => {
-              const isVideo = item.media_url?.toLowerCase().endsWith('.mov') || item.media_url?.toLowerCase().endsWith('.mp4');
-              return (
-                <div
-                  key={item.id}
-                  className="group relative flex flex-col bg-white border border-black/[0.03] hover:border-black/10 transition-all duration-700 hover:-translate-y-2"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div
-                    className="relative aspect-[4/5] bg-zinc-100 overflow-hidden cursor-none"
-                    onClick={() => isVideo && setSelectedVideo(item.media_url)}
-                  >
-                    {isVideo ? (
-                      <video autoPlay muted loop className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[2s] ease-out">
-                        <source src={item.media_url}/>
-                      </video>
-                    ) : (
-                      <img src={item.media_url} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[2s] ease-out" alt={item.title}/>
-                    )}
-
-                    <div className="absolute top-6 left-6 px-4 py-2 bg-black/40 backdrop-blur-md border border-white/10 text-white font-mono text-[8px] uppercase tracking-[0.3em] z-10">
-                      {isVideo ? 'REC // MOTION' : 'DOC // STILL'}
-                    </div>
-
-                    {isVideo && (
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/20">
-                        <div className="w-16 h-16 rounded-full border border-white/50 flex items-center justify-center backdrop-blur-sm">
-                          <PlayCircle className="text-white" size={32} />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="pt-10 pb-4">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-gold font-mono text-[10px] font-black italic">MOD_{index + 1}</span>
-                      <div className="h-[1px] flex-grow bg-black/5"></div>
-                    </div>
-
-                    <h2 className="font-['Archivo_Black'] text-3xl uppercase tracking-tighter leading-none mb-4 group-hover:text-red transition-colors duration-500">
-                      {item.title}
-                    </h2>
-
-                    <p className="text-black/40 text-sm font-medium leading-relaxed italic pr-4">
-                      {item.description}
-                    </p>
-
-                    {item.status === 'Active' && (
-                      <button type="button" className="mt-10 flex items-center gap-4 font-mono text-[10px] font-black uppercase tracking-[0.4em] group/btn">
-                        <span className="text-red">Get Access</span>
-                        <ArrowRight size={14} className="group-hover/btn:translate-x-3 transition-transform text-red" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {selectedVideo && (
-        <div className="fixed inset-0 z-[500] bg-black/95 flex items-center justify-center p-6 md:p-20 backdrop-blur-xl" onClick={() => setSelectedVideo(null)}>
-          <button type="button" aria-label="Close video" className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors">
-            <X size={40}/>
+    <div role="dialog" aria-modal="true" aria-label={photo.alt} className="fixed inset-0 z-[500] bg-black/95 flex items-center justify-center p-4 md:p-16" onClick={onClose}>
+      <button type="button" autoFocus onClick={onClose} aria-label="Close photo" className="absolute top-4 right-4 w-12 h-12 flex items-center justify-center text-white/80 hover:text-white">
+        <X size={32} />
+      </button>
+      {photos.length > 1 && (
+        <>
+          <button type="button" onClick={(e) => { e.stopPropagation(); onMove(-1); }} aria-label="Previous photo" className="absolute left-2 md:left-6 w-12 h-12 flex items-center justify-center text-white/80 hover:text-white">
+            <ChevronLeft size={40} />
           </button>
-          <video autoPlay controls className="max-w-6xl w-full aspect-video shadow-[0_0_100px_rgba(212,175,55,0.2)] border border-white/10">
-            <source src={selectedVideo} type="video/mp4"/>
-          </video>
-        </div>
+          <button type="button" onClick={(e) => { e.stopPropagation(); onMove(1); }} aria-label="Next photo" className="absolute right-2 md:right-6 w-12 h-12 flex items-center justify-center text-white/80 hover:text-white">
+            <ChevronRight size={40} />
+          </button>
+        </>
       )}
+      <figure className="max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
+        <img src={`/gallery/${photo.id}.webp`} alt={photo.alt} className="mx-auto max-h-[78vh] w-auto object-contain" />
+        <figcaption className="mt-4 text-center text-white/80">{photo.alt} <span className="text-white/60">· {index + 1} of {photos.length}</span></figcaption>
+      </figure>
+    </div>
+  );
+}
+
+export default function Gallery() {
+  usePageTitle('Gallery');
+  const [category, setCategory] = useState('all');
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const photos = category === 'all' ? APPROVED : APPROVED.filter((p) => p.category === category);
+  const close = useCallback(() => setOpenIndex(null), []);
+  const move = useCallback((step) => setOpenIndex((i) => (i + step + photos.length) % photos.length), [photos.length]);
+
+  return (
+    <main id="main">
+      <PageHeader eyebrow="Gallery" title="Life at Healthnastics" intro="Moments from the mats, the classroom, the community and the road." />
+
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div role="group" aria-label="Filter photos" className="flex flex-wrap gap-3 mb-14">
+            {CATEGORIES.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={category === id}
+                onClick={() => setCategory(id)}
+                className={`px-5 py-3 font-semibold border transition-colors ${category === id ? 'bg-ink text-white border-ink' : 'bg-white text-ink/80 border-ink/20 hover:border-ink'}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* key={category} replays the cascade each time the filter changes */}
+          <div key={category} className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {photos.map((photo, i) => (
+              <Reveal key={photo.id} delay={(i % 6) * 90}>
+                <button type="button" onClick={() => setOpenIndex(i)} className="group block w-full text-left">
+                  <span className="block aspect-[4/5] overflow-hidden bg-cream">
+                    <img
+                      src={`/gallery/${photo.id}-thumb.webp`}
+                      alt={photo.alt}
+                      loading="lazy"
+                      width="640"
+                      height="800"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </span>
+                  <span className="block mt-3 text-ink/70 group-hover:text-ink">{photo.alt}</span>
+                </button>
+              </Reveal>
+            ))}
+
+            <Reveal delay={(photos.length % 6) * 90}>
+              <div className="aspect-[4/5] flex flex-col justify-center p-8 md:p-10 bg-cream border-2 border-dashed border-ink/20">
+                <Camera size={40} className="text-gold-dark" aria-hidden="true" />
+                <h2 className="mt-6 font-display text-2xl uppercase tracking-tight">More photos coming soon</h2>
+                <p className="mt-3 text-ink/70 leading-relaxed">
+                  We only share photos of cadets with their family’s permission. Parents: ask us for a photo consent form.
+                </p>
+                <Button to="/contact?topic=general" variant="outline" className="mt-8 self-start">Contact us</Button>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {openIndex !== null && photos[openIndex] && <Lightbox photos={photos} index={openIndex} onClose={close} onMove={move} />}
     </main>
   );
 }

@@ -1,83 +1,70 @@
 import { Link } from 'react-router-dom';
-import { NAV_LINKS } from '../site';
+import { MapPin, Mail, Phone, Instagram, Facebook } from 'lucide-react';
+import { NAV_LINKS, ORG, LOCATION, CONTACT, SOCIAL } from '../site';
+import { Button } from './ui';
+import { DONATE_LINK } from '../lib';
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white pt-5 pb-0 px-8 md:px-5 border-t-[16px] border-gold">
-      <div className="max-w-[1600px] mx-auto px-8 py-12">
+    <footer className="bg-ink text-white">
+      <div className="h-2 kente-stripe" aria-hidden="true" />
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-10">
 
-        {/* MAIN FOOTER GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 mb-32">
-
-          {/* COLUMN 1: THE BRAND */}
-          <div className="space-y-10">
-            <div className="flex flex-col">
-              <span className="font-['Archivo_Black'] text-2xl md:text-2xl tracking-tighter uppercase leading-none text-white">
-                Wharton Center Healthnastics
-              </span>
-            </div>
-            <p className="text-white/50 text-sm md:text-lg font-medium leading-relaxed italic max-w-sm">
-              "Architecting the physical and intellectual infrastructure for Philadelphia’s next generation."
+        <div className="grid gap-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr_1.2fr]">
+          <div>
+            <Link to="/" className="flex items-center gap-3">
+              <img src="/logo.png" alt="" width="48" height="48" className="h-12 w-12 object-contain bg-white rounded-full p-1" />
+              <span className="font-display text-xl uppercase tracking-tight">{ORG.name}</span>
+            </Link>
+            <p className="mt-6 text-white/70 leading-relaxed max-w-sm">
+              {ORG.tagline} A Philadelphia nonprofit founded by {ORG.founder}.
             </p>
+            {ORG.ein && <p className="mt-4 text-sm text-white/50">501(c)(3) nonprofit · EIN {ORG.ein}</p>}
           </div>
 
-          {/* COLUMN 2: NAVIGATION */}
-          <div>
-            <h4 className="font-mono text-sm font-black uppercase tracking-[0.3em] text-white/30 mb-10">Directory_Index</h4>
-            <ul className="space-y-5 font-mono text-sm md:text-base uppercase tracking-[0.2em]">
-              {NAV_LINKS.map(({ to, label }) => (
-                <li key={to}>
-                  <Link
-                    to={to}
-                    className="hover:text-gold transition-all hover:translate-x-4 duration-300 flex items-center gap-4 group"
-                  >
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-gold">/</span>
-                    {label}
-                  </Link>
-                </li>
+          <nav aria-label="Footer">
+            <h2 className="eyebrow text-gold mb-6">Explore</h2>
+            <ul className="space-y-3">
+              {[{ to: '/', label: 'Home' }, ...NAV_LINKS].map(({ to, label }) => (
+                <li key={to}><Link to={to} className="text-white/80 hover:text-gold transition-colors">{label}</Link></li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* COLUMN 3: LOCATION */}
           <div>
-            <h4 className="font-mono text-sm font-black uppercase tracking-[0.3em] text-white/30 mb-12">Located In</h4>
-            <div className="space-y-8 font-mono text-sm md:text-base uppercase tracking-[0.2em]">
-              <div className="text-white/60 flex flex-col gap-2 border-l-2 border-white/10 pl-6">
-                <span>District: Philadelphia_PA_07</span>
-                <span>Coordinates: 39.9526° N, 75.1652° W</span>
-              </div>
+            <h2 className="eyebrow text-gold mb-6">Visit</h2>
+            <a href={LOCATION.mapUrl} target="_blank" rel="noopener noreferrer" className="flex gap-3 text-white/80 hover:text-gold transition-colors">
+              <MapPin size={20} className="shrink-0 mt-0.5" aria-hidden="true" />
+              <span>{LOCATION.name}<br />{LOCATION.street}<br />{LOCATION.city}</span>
+            </a>
+            <ul className="mt-6 space-y-3 text-white/80">
+              {CONTACT.email && <li><a href={`mailto:${CONTACT.email}`} className="flex gap-3 hover:text-gold"><Mail size={20} aria-hidden="true" />{CONTACT.email}</a></li>}
+              {CONTACT.phone && <li><a href={`tel:${CONTACT.phone}`} className="flex gap-3 hover:text-gold"><Phone size={20} aria-hidden="true" />{CONTACT.phone}</a></li>}
+            </ul>
+            <div className="mt-6 flex gap-3">
+              {SOCIAL.instagram && <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-11 h-11 flex items-center justify-center border border-white/20 hover:border-gold hover:text-gold"><Instagram size={20} /></a>}
+              {SOCIAL.facebook && <a href={SOCIAL.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-11 h-11 flex items-center justify-center border border-white/20 hover:border-gold hover:text-gold"><Facebook size={20} /></a>}
             </div>
           </div>
 
-          {/* COLUMN 4: CALL TO ACTION */}
-          <div className="flex flex-col justify-start">
-            <h4 className="font-mono text-sm font-black uppercase tracking-[0.3em] text-white/30 mb-12">Resource_Allocation</h4>
-            <Link
-              to="/support"
-              className="group relative overflow-hidden border-2 border-white/20 py-8 px-6 text-center font-['Archivo_Black'] text-lg uppercase tracking-[0.2em] transition-all hover:border-gold"
-            >
-              <span className="relative z-10 group-hover:text-black transition-colors duration-300">Invest in the Guard</span>
-              <div className="absolute inset-0 bg-gold translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </Link>
+          <div>
+            <h2 className="eyebrow text-gold mb-6">Get involved</h2>
+            <p className="text-white/70 leading-relaxed mb-6">Enroll a child, volunteer your time, or help keep the mats down and the lights on.</p>
+            <div className="flex flex-col gap-3">
+              <Button to={DONATE_LINK} variant="gold">Donate</Button>
+              <Button to="/contact?topic=enroll" variant="outline-light">Enroll your child</Button>
+            </div>
           </div>
         </div>
 
-        {/* BOTTOM LEGAL STRIP */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-10">
-          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 font-mono text-xs md:text-sm text-white/20 uppercase tracking-[0.4em]">
-            <span>&copy; {new Date().getFullYear()} Healthnastics Inc </span>
-            <span className="hidden md:block text-white/5">|</span>
-            <span>Created by La'Joir Coppock</span>
-          </div>
-
-          {/* Privacy + Terms pages come in Phase 7 */}
-          <div className="flex gap-12 font-mono text-xs md:text-sm text-white/30 uppercase tracking-widest">
-            <span>Privacy_Protocol</span>
-            <span>Terms_Of_Service</span>
+        <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between gap-6 text-sm text-white/60">
+          <p>&copy; {new Date().getFullYear()} {ORG.legalName}. All rights reserved.</p>
+          <div className="flex flex-wrap gap-x-8 gap-y-2">
+            <Link to="/privacy" className="hover:text-gold">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-gold">Terms of Use</Link>
+            <span>Website by La'Joir Coppock</span>
           </div>
         </div>
-
       </div>
     </footer>
   );

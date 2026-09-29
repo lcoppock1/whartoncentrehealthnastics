@@ -27,6 +27,10 @@ for (const path of paths) {
     page.on('response', (r) => r.status() >= 400 && problems.push(`HTTP ${r.status()}: ${r.url()}`));
 
     await page.goto(base + path, { waitUntil: 'networkidle', timeout: 30000 }).catch((e) => problems.push(String(e)));
+    // Scroll through the page like a visitor so scroll-triggered animations play.
+    const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+    for (let y = 0; y < pageHeight; y += 300) { await page.mouse.wheel(0, 300); await page.waitForTimeout(60); }
+    await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(1000);
 
     const broken = await page.$$eval('img', (imgs) =>

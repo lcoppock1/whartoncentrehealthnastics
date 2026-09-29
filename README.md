@@ -1,16 +1,51 @@
-# React + Vite
+# Healthnastics Center website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website for **Healthnastics Center Inc.**, a Philadelphia nonprofit founded by Lewis Harris Jr.
+It brings together gymnastics, fitness, homework help and civic leadership (GD-Cadets).
 
-Currently, two official plugins are available:
+## Run it on your computer
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Install [Node.js](https://nodejs.org) (the "LTS" version).
+2. In this folder, run `npm install` once.
+3. Run `npm run dev` and open the link it prints (usually http://localhost:5173).
 
-## React Compiler
+Other commands:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Command | What it does |
+|---|---|
+| `npm run lint` | Checks the code for mistakes |
+| `npm run build` | Builds the finished site into `dist/` (what gets uploaded) |
+| `npm run photos` | Makes web-sized copies of approved gallery photos |
 
-## Expanding the ESLint configuration
+## Where to change things
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| To change… | Edit |
+|---|---|
+| Contact email/phone, address, socials, donation link, form link, founder photo | `src/site.js` |
+| Program descriptions, ages, schedules, costs | `src/data/programs.js` |
+| Which photos appear in the gallery | `src/data/gallery.js`, then run `npm run photos` |
+| Colors and fonts | `src/index.css` (the `@theme` block) |
+| Page text and layout | `src/pages/<Page>.jsx` |
+
+Anything left as `null` in `src/site.js` shows a friendly "coming soon" instead of made-up info.
+
+## Before launch checklist
+
+- [ ] **Contact form:** create a free form at [formspree.io](https://formspree.io), paste its link into `FORM_ENDPOINT` in `src/site.js`.
+- [ ] **Donations:** set up a nonprofit giving page (e.g. [Zeffy](https://www.zeffy.com), free for nonprofits) and paste it into `DONATE_URL`. Set its "after payment" page to `https://<your-site>/thank-you`.
+- [ ] **Contact info:** fill in `CONTACT.email`, `CONTACT.phone`, `SOCIAL`, `ORG.foundedYear`, `ORG.ein`.
+- [ ] **Founder photo:** add a photo of Mr. Harris to `public/` and set `FOUNDER_PHOTO`.
+- [ ] **Program details:** fill in schedules and costs in `src/data/programs.js`.
+- [ ] **Photo consent:** collect signed parent consent forms, then set `approved: true` for those photos and run `npm run photos`.
+- [ ] **Review wording** with Mr. Harris: About page bio, program descriptions, Privacy and Terms pages.
+
+## Putting it online
+
+The easiest free options are [Netlify](https://www.netlify.com) or [Vercel](https://vercel.com):
+connect this GitHub repository, use build command `npm run build` and output folder `dist`.
+Both are already configured so page links like `/about` work (`public/_redirects`, `vercel.json`).
+
+## Working with Claude Code
+
+See `CLAUDE.md` for the workflow and `ROADMAP.md` for what's done and what's next.
+Useful commands in Claude Code: `/revamp` (next roadmap item) and `/check` (full quality check).

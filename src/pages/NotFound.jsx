@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Button } from '../components/ui';
+import { usePageTitle } from '../lib';
 
 export default function NotFound() {
+  usePageTitle('Page not found');
   return (
-    <main className="pt-48 pb-40 px-6 text-center min-h-screen flex flex-col items-center justify-center bg-cream">
-      <p className="font-['Archivo_Black'] text-8xl md:text-[12rem] leading-none text-black/10">404</p>
-      <h1 className="font-['Archivo_Black'] text-3xl md:text-5xl uppercase tracking-tighter mt-6">Page not found</h1>
-      <p className="text-lg text-black/60 mt-4 max-w-md">The page you're looking for doesn't exist or has moved.</p>
-      <Link
-        to="/"
-        className="mt-12 font-['Archivo_Black'] uppercase tracking-widest bg-black text-white px-16 py-6 hover:bg-gold hover:text-black transition-all text-lg shadow-2xl"
-      >
-        Return Home
-      </Link>
+    <main id="main" className="pt-48 pb-40 px-6 text-center min-h-screen flex flex-col items-center justify-center bg-cream">
+      <p className="font-display text-8xl md:text-[12rem] leading-none text-ink/10" aria-hidden="true">404</p>
+      <h1 className="font-display text-3xl md:text-5xl uppercase tracking-tight mt-6">Page not found</h1>
+      <p className="text-lg text-ink/70 mt-4 max-w-md">The page you’re looking for doesn’t exist or has moved.</p>
+      <div className="mt-12 flex flex-col sm:flex-row gap-4">
+        <Button to="/" variant="dark">Return home</Button>
+        <Button to="/contact?topic=general" variant="outline">Contact us</Button>
+      </div>
     </main>
   );
 }

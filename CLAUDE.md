@@ -28,7 +28,8 @@ jargon, and never assume they know a tool — say what it does in one sentence.
 - React 19 + Vite (`npm run dev`, `npm run build`, `npm run lint`)
 - Styling: Tailwind v4 (Vite plugin); brand colors/fonts defined in `src/index.css` `@theme`
 - Icons: `lucide-react`
-- Optional data: Supabase (`src/supabaseClient.js`, table `cadet_modules`)
+- Content: `src/site.js` (settings), `src/data/programs.js`, `src/data/gallery.js` (+ `npm run photos`)
+- Fonts self-hosted via @fontsource (Archivo Black headings, Inter body)
 - Routing: React Router (`src/App.jsx`); pages in `src/pages/`, shared pieces in `src/components/`, editable settings in `src/site.js`
 
 ## Workflow — ALWAYS follow this (owner must approve every change)
@@ -53,8 +54,8 @@ only the item being discussed. Exception: if the owner explicitly hands over ful
 control for a session, run the loop without pausing but still run `/check` for every
 item and report a summary at the end.
 
-To re-enable per-edit approval prompts, add to `.claude/settings.json`:
-`"permissions": { "ask": ["Edit(src/**)", "Write(src/**)"] }`
+Per-edit approval prompts come from the `ask` rules in `.claude/settings.json`;
+the owner can delete those rules to stop the prompts.
 
 ## Content & style rules
 - Plain, warm language for parents, kids and donors. No fake metrics or

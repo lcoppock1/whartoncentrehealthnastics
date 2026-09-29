@@ -1,32 +1,48 @@
 @import "tailwindcss";
+@import "@fontsource/archivo-black/400.css";
+@import "@fontsource-variable/inter";
 
-/* Brand colors and fonts. Use them as classes, e.g. bg-gold, text-red, bg-cream, font-mono. */
+/* Brand colors and fonts. Use them as classes, e.g. bg-gold, text-red, bg-cream, font-display. */
 @theme {
   --color-gold: #D4AF37;
+  --color-gold-dark: #8A6A0C;  /* gold that is readable on white/cream */
   --color-red: #CC0000;
   --color-green: #006633;
   --color-cream: #fdf8f1;
   --color-ink: #1A1A1A;
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Archivo Black', 'Arial Black', Impact, sans-serif;
+}
+
+/* Small uppercase label above headings. */
+@utility eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Kente-inspired three-color stripe used as a brand accent. */
+@utility kente-stripe {
+  background: linear-gradient(90deg, var(--color-red) 0 33.33%, var(--color-gold) 33.33% 66.66%, var(--color-green) 66.66% 100%);
 }
 
 html {
-  font-size: 14px;
   scroll-behavior: smooth;
-}
-
-@media (min-width: 1600px) {
-  html { font-size: 15px; }
 }
 
 body {
   background-color: #ffffff;
-  color: #000000;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
 }
 
 ::selection {
@@ -34,6 +50,23 @@ body {
   color: #000000;
 }
 
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Fade-and-rise used by <Reveal>. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }

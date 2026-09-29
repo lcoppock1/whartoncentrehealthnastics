@@ -28,43 +28,46 @@ Common pattern on all of them: **Hero (mission + 2 CTAs) → What we do (program
 - [x] Fix "Warton" → "Wharton" everywhere
 - [x] Add basic SEO: site title, meta description, social share image, favicon
 
-## Phase 1 — Home page
-- [ ] Hero: plain-language headline ("Gymnastics, leadership and homework help for Philly kids 8–14"), real photo, CTAs **Enroll your child** + **Support us**
-- [ ] Replace "Institutional Partners" row (lists categories, not partners) with real partners or remove
-- [ ] Programs overview (Gymnastics · GD-Cadets civics · Homework help · Summer camp & trips) with photos
-- [ ] Replace dashboard of fake metrics ("Discipline Index 85%", "Fully Operational") with real impact numbers or a short story/quote
-- [ ] Founder section with real photo; testimonials from parents/cadets
-- [ ] Get-involved band + newsletter signup
+## Phase 1 — Home page ✅
+- [x] Plain-language hero with Enroll + Support buttons (no un-consented kids' photos)
+- [x] Replaced fake "Institutional Partners" row with the three pillars (body · mind · citizen)
+- [x] Programs overview linking to each program
+- [x] Removed fake metrics ("Discipline Index 85%", "Fully Operational"); added "Why families choose us"
+- [x] Founder section with real bio; photo placeholder until we get one
+- [x] Get-involved band (Enroll · Volunteer · Donate · Partner) + location strip
+- [x] Self-hosted fonts, readable text sizes, accessible gold (`gold-dark`) on light backgrounds
 
-## Phase 2 — About
-- [ ] Story, mission, founder + team (with safety clearances/certifications), location map, "Circa 2024" → real founding facts
-- [ ] Remove jargon headings ("Base Intelligence", "Operational Ethos")
+## Phase 2 — About ✅
+- [x] Story, founder bio (nonpartisan), values, home base at Clayborn & Lewis Playground
 
-## Phase 3 — Programs (new page)
-- [ ] One section per program: ages, days/times, location, cost (or free), what kids learn, how to enroll
-- [ ] FAQ for parents (what to wear, pickup, safety, cost)
+## Phase 3 — Programs ✅
+- [x] One section per program with ages / when / cost (shows "Contact us" until filled in) + enroll button
+- [x] Parent FAQ
 
-## Phase 4 — Gallery ("The Archives")
-- [ ] Media pipeline (only for consent-cleared photos): compress (3–6 MB each → ~200 KB WebP), convert `.MOV` → `.mp4`, move web copies into `public/`; keep originals out of git (repo is 165 MB)
-- [ ] Decide data source: static photo list in code (simplest, reliable) **or** fix Supabase (needs table, storage bucket, public read policy)
-- [ ] Fix the "cascade" effect: cards set `animationDelay` but no animation class runs, and `animate-in`/`fade-in` classes need a plugin that isn't installed → build a real staggered fade-in on scroll (respecting reduced-motion)
-- [ ] Show a friendly empty/error state (today a failed load silently shows nothing)
-- [ ] Lightbox for photos, working video modal (MOV doesn't play in most browsers), category filters
+## Phase 4 — Gallery ✅
+- [x] Replaced broken Supabase loading with a simple photo list (`src/data/gallery.js`)
+- [x] Every photo has an `approved` switch; only approved photos are published (`npm run photos`)
+- [x] Working cascade fade-in, category filters, full-screen viewer (keyboard arrows + on-screen buttons)
+- [ ] Owner: approve photos once parent consent forms are signed
+- [ ] Convert `IMG_0952.MOV` to `.mp4` if we want video
 
-## Phase 5 — Support / Donate
-- [ ] Connect a real donation platform (e.g. Zeffy — free for nonprofits, Givebutter, or Donorbox); today every donate button does nothing
-- [ ] Plain-language tiers ("$25/mo buys a leotard and workbook"), remove "Deploy Capital" wording and unverifiable claims ("SECURE Encrypted Portal", "100%")
-- [ ] Volunteer + corporate partnership forms; show 501(c)(3)/EIN
-- [ ] Thank-you page (currently `SuccessView` exists but is never reachable)
+## Phase 5 — Support / Donate ✅
+- [x] Plain-language giving levels, "where your gift goes", other ways to help
+- [x] All Donate buttons go to `DONATE_URL` once set, otherwise to the contact form
+- [x] Thank-you page for donations and messages
+- [ ] Owner: pick a donation platform and set `DONATE_URL`
 
-## Phase 6 — Contact / Enroll (new)
-- [ ] Enrollment interest form (parent name, child age, program, contact) → email or Supabase
-- [ ] Contact info, address, hours, map, socials
+## Phase 6 — Contact / Enroll ✅
+- [x] Contact & enrollment form (topic, child age, program) with spam trap
+- [ ] Owner: create a Formspree form and set `FORM_ENDPOINT` (form is disabled until then)
 
 ## Phase 7 — Launch polish
-- [ ] Footer: real address/phone/email/socials, working Privacy + Terms pages (important when showing kids' photos)
-- [ ] Accessibility pass (contrast, 8–11px text sizes currently used, keyboard navigation)
-- [ ] Performance pass (Lighthouse ≥ 90), deploy (Vercel/Netlify) + custom domain
+- [x] Footer with address, contact, socials (shown once filled in), Privacy + Terms pages
+- [x] Skip-to-content link, focus outlines, per-page titles, mobile menu, 44px tap targets
+- [x] Images compressed (logo 858 KB → 39 KB), `.env` removed from git
+- [ ] Owner: fill in the "Before launch checklist" in README.md
+- [ ] Deploy to Netlify or Vercel and connect a domain
+- [ ] Have Mr. Harris review all wording (especially About, Programs, Privacy/Terms)
 
 ## Questions — answered
 - Spelling → **Wharton** ✅

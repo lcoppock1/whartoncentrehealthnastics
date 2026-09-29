@@ -1,24 +1,34 @@
-import { Link } from 'react-router-dom';
-import { Shield } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { Heart, MailCheck } from 'lucide-react';
+import { Button } from '../components/ui';
+import { usePageTitle } from '../lib';
 
-// Where the donation platform should send people after they give (ROADMAP Phase 5).
+// /thank-you?for=message after the contact form; plain /thank-you after a donation
+// (set this as the "redirect after payment" page in your donation platform).
 export default function ThankYou() {
+  const [params] = useSearchParams();
+  const isMessage = params.get('for') === 'message';
+  usePageTitle('Thank you');
+  const Icon = isMessage ? MailCheck : Heart;
+
   return (
-    <main className="pt-48 pb-40 text-center min-h-screen flex flex-col items-center justify-center bg-black text-white">
-      <div className="w-24 h-24 border-2 border-gold flex items-center justify-center mb-12">
-        <Shield size={48} className="text-gold" />
+    <main id="main" className="min-h-screen flex items-center bg-ink text-white pt-32 pb-24">
+      <div className="max-w-3xl mx-auto px-6 text-center">
+        <span className="mx-auto w-24 h-24 flex items-center justify-center border-2 border-gold">
+          <Icon size={44} className="text-gold" aria-hidden="true" />
+        </span>
+        <p className="eyebrow text-gold mt-10">{isMessage ? 'Message received' : 'Gift received'}</p>
+        <h1 className="mt-4 font-display text-5xl md:text-7xl uppercase tracking-tight leading-[0.95]">Thank you!</h1>
+        <p className="mt-8 text-xl text-white/80 leading-relaxed">
+          {isMessage
+            ? 'We’ve got your message and will get back to you soon.'
+            : 'Your generosity puts cadets on the mats, in the classroom and out in the world. A receipt is on its way to your email.'}
+        </p>
+        <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+          <Button to="/" variant="gold">Back to home</Button>
+          <Button to="/programs" variant="outline-light">Explore programs</Button>
+        </div>
       </div>
-      <span className="font-mono text-xs font-black uppercase tracking-[0.6em] text-gold mb-6 block">Deployment Successful</span>
-      <h1 className="font-['Archivo_Black'] text-6xl md:text-8xl uppercase tracking-tighter mb-12">Mission <br/>Funded.</h1>
-      <p className="max-w-xl text-white/60 font-medium text-lg mb-16 px-6 italic">
-        "Your capital has been allocated to Base-01 operations. A formal receipt has been dispatched to your secure terminal (email)."
-      </p>
-      <Link
-        to="/"
-        className="font-['Archivo_Black'] uppercase tracking-widest bg-red text-white px-20 py-6 hover:bg-white hover:text-black transition-all text-xl shadow-2xl"
-      >
-        Return Home
-      </Link>
     </main>
   );
 }
